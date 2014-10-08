@@ -1,4 +1,6 @@
-lvcccpc
-=======
+<h1>LVCC Computer Programming Competition v.0.1</h1>
 
-La Verdad Christian College Computer Programming Competition Judging System
+* Dashboard
+* Manage Team
+* Manage Questions
+* Submit Answers
