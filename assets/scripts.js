@@ -26,7 +26,7 @@ $(function() {
             dataType: 'json',
             success: function(response) {
                 if (response.success) {
-                    $('#submission_' + answer_id + ' span').removeClass('label-success').addClass('label-default').html(response.code_status);
+                    $('#submission_' + answer_id + ' span').removeClass('label-warning').removeClass('label-success').addClass('label-default').html(response.code_status);
                     $('#reviewCodeModal').modal('hide');
                 }
             }
@@ -42,7 +42,7 @@ $(function() {
             dataType: 'json',
             success: function(response) {
                 if (response.success) {
-                    $('#submission_' + answer_id + ' span').removeClass('label-default').addClass('label-success').html(response.code_status);
+                    $('#submission_' + answer_id + ' span').removeClass('label-warning').removeClass('label-default').addClass('label-success').html(response.code_status);
                     $('#reviewCodeModal').modal('hide');
                 }
             }

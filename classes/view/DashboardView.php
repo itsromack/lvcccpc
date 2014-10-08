@@ -6,12 +6,13 @@ class DashboardView extends View {
     protected $vars;
 
     public function DashboardView() {
+        global $SITE_NAME;
         $template = 'dashboard';
         parent::__construct($template);
         $user = null;
         if (isset($_SESSION['user'])) {
-	        $id			= $_SESSION['user']['id'];
-	        $username 	= $_SESSION['user']['username'];
+	        $id = $_SESSION['user']['id'];
+	        $username = $_SESSION['user']['username'];
 	        if ($_SESSION['type'] == 'judges') {
 	        	$complete_name 	= $_SESSION['user']['complete_name'];
 	        	$user = new Judge($id, $complete_name, $username);
@@ -22,7 +23,7 @@ class DashboardView extends View {
                 $this->vars['is_team'] = true;
 	        }
         }
-        
+
         if (isset($user)) {
             $this->vars['username'] = $user->getUserName();
         } else {
@@ -34,8 +35,12 @@ class DashboardView extends View {
         $this->vars['number_of_teams'] = UserDAO::countTeams();
         $this->vars['number_of_questions'] = QuestionDAO::countQuestions();
         $this->vars['teams'] = UserDAO::getUsers('teams');
-        $this->vars['questions'] = QuestionDAO::getQuestions();
-        $this->vars['submittions'] = TeamAnswerDAO::getAnswers();
+        if ($_SESSION['type'] == 'teams') {
+            $this->vars['questions'] = QuestionDAO::getQuestions($_SESSION['user']['id']);
+        } else {
+            $this->vars['questions'] = QuestionDAO::getQuestions();
+        }
+        $this->vars['submissions'] = TeamAnswerDAO::getAnswers();
         $this->vars['number_of_submissions'] = TeamAnswerDAO::countSubmissions();
         
         $this->vars['error'] = (isset($_GET['error'])) ? 'Access Denied' : null;

@@ -1,11 +1,28 @@
 <?php
 class TeamAnswerDAO {
-    public static function getAnswer($answer_id) {
+    public static function getAnswer($answer_id, $question_id = false, $team_id = false) {
         global $db;
         $sql = "SELECT *
             FROM team_answers
-            WHERE
-                id = {$answer_id}";
+            WHERE";
+        if ($answer_id !== false) {
+            $sql .= ' id=' . $answer_id;
+        }
+        if ($question_id !== false) {
+            if ($answer_id === false) {
+                $sql .= ' question_id=' . $question_id;
+            } else {
+                $sql .= ' AND question_id=' . $question_id;
+            }
+        }
+        if ($team_id !== false) {
+            if ($answer_id === false && $question_id === false) {
+                $sql .= ' team_id=' . $team_id;
+            } else {
+                $sql .= ' AND team_id=' . $team_id;
+            }
+        }
+        error_log($sql);
         $result = $db->query($sql);
         if ($result) {
             return $result->fetch_assoc();
