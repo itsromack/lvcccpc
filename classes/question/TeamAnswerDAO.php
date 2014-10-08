@@ -41,7 +41,6 @@ class TeamAnswerDAO {
 
     public static function saveAnswer($question_id, $team_id, $answer) {
         global $db;
-        $answer = sanitize($answer);
         $sql = "INSERT INTO team_answers (question_id, team_id, answer) ";
         $sql .= "VALUES ({$question_id}, {$team_id}, '{$answer}')";
         $db->query($sql);

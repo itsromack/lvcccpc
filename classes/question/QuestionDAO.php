@@ -26,7 +26,7 @@ class QuestionDAO {
     public static function getQuestions() {
         global $db;
         $questions = array();
-        $sql = "SELECT * FROM questions ORDER BY id";
+        $sql = "SELECT id, title FROM questions ORDER BY id";
         $result = $db->query($sql);
         if ($result->num_rows > 0) {
             for ($i = 0; $i < $result->num_rows; $i++) {

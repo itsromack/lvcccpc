@@ -17,10 +17,6 @@ $(function() {
         $('#sidebar').show('fast');
     });
 
-    $('.submit-code').click(function(){
-        //
-    });
-
     $('.reject-code').click(function(){
         answer_id = $('#answerId').val();
         $.ajax({
@@ -65,7 +61,7 @@ $(function() {
             dataType: 'json',
             success: function(response) {
                 if (response.success) {
-                    $('#myModalLabel').html(title + " <small>by: " + team + "</small>");
+                    $('#ReviewCodeLabel').html(title + " <small>by: " + team + "</small>");
                     $('#sourceCode').val(response.data.answer);
                     $('#sourceCode').attr('rows', 15);
                     $('#sourceCode').css('width', '95%');
