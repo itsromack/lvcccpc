@@ -1,0 +1,65 @@
+{{>header}}
+{{>menubar}}
+<div class="container-fluid">
+    <div class="row-fluid">
+        {{>sidebar}}
+
+        <!--/span-->
+        <div class="span9" id="content">
+            <div class="row-fluid">
+                <div class="span12">
+                    <!-- block -->
+                    <div class="block">
+                        <div class="navbar navbar-inner block-header">
+                            <div class="muted pull-left">Scoreboard</div>
+                            <div class="pull-right"><span class="badge badge-info">{{number_of_teams}}</span></div>
+                        </div>
+                        <div class="block-content collapse in">
+                            <table class="table table-striped">
+                                <thead>
+                                    <tr>
+                                        <th>#</th>
+                                        <th>Team Name</th>
+                                        <th>Username</th>
+                                        <th>1</th>
+                                        <th>2</th>
+                                        <th>3</th>
+                                        <th>4</th>
+                                        <th>5</th>
+                                        <th>6</th>
+                                        <th>7</th>
+                                        <th>8</th>
+                                        <th>9</th>
+                                        <th>10</th>
+                                        <th>Total</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {{#teams}}
+                                    <tr>
+                                        <td>{{id}}</td>
+                                        <td>{{name}}</td>
+                                        <td>{{username}}</td>
+                                        <td>{{q1}}</td>
+                                        <td>{{q2}}</td>
+                                        <td>{{q3}}</td>
+                                        <td>{{q4}}</td>
+                                        <td>{{q5}}</td>
+                                        <td>{{q6}}</td>
+                                        <td>{{q7}}</td>
+                                        <td>{{q8}}</td>
+                                        <td>{{q9}}</td>
+                                        <td>{{q10}}</td>
+                                        <td>{{score_total}}</td>
+                                    </tr>
+                                    {{/teams}}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <!-- /block -->
+                </div>
+            </div>
+        </div>
+    </div>
+{{>footer}}
