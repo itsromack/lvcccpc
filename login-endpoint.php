@@ -12,7 +12,5 @@ if ($user === NULL) {
 } else {
 	$_SESSION['user'] = $user;
 	$_SESSION['type'] = $type;
-	// echo '<pre>';
-	// var_dump($_SESSION);exit;
 	header('Location: dashboard.php');
 }
