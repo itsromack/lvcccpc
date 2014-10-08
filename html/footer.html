@@ -6,24 +6,15 @@
 
 <!-- Review Code Modal -->
 <div class="modal fade" id="reviewCodeModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-  <div class="modal-dialog modal-lg">
+  <div class="modal-dialog modal-xxlg">
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><!-- <span class="sr-only">Close</span> --></button>
-        <h4 class="modal-title" id="myModalLabel"></h4>
+        <h4 class="modal-title" id="ReviewCodeLabel"></h4>
       </div>
       <div class="modal-body">
       	<input id="answerId" type="hidden" />      	
         <textarea id="sourceCode"></textarea>
-        <label>Score:
-	        <select id="answerScore">
-	        	<option value="0">Give a Score</option>
-	        	<option value="3">Excellent</option>
-	        	<option value="2">Very Good</option>
-	        	<option value="1">Good</option>
-	        	<option value="-1">Unacceptable</option>
-	        </select>
-        </label>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
