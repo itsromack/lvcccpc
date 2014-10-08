@@ -29,6 +29,7 @@ require_once("$BASE_DIR/classes/user/User.php");
 require_once("$BASE_DIR/classes/user/Team.php");
 require_once("$BASE_DIR/classes/user/Judge.php");
 require_once("$BASE_DIR/classes/user/UserDAO.php");
+require_once("$BASE_DIR/classes/score/ScoreDAO.php");
 require_once("$BASE_DIR/classes/question/QuestionDAO.php");
 require_once("$BASE_DIR/classes/question/TeamAnswerDAO.php");
 

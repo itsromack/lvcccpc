@@ -1,4 +1,4 @@
-<?
+<?php
 
 function formatTime($timestamp) { 
     if ($timestamp) { 
