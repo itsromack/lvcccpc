@@ -1,0 +1,126 @@
+{{>header}}
+{{>menubar}}
+<div class="container-fluid">
+    <div class="row-fluid">
+        {{>sidebar}}
+
+        <!--/span-->
+        <div class="span9" id="content">
+            <div class="row-fluid">
+                {{#is_team}}
+                <div class="span6">
+                    <!-- block -->
+                    <div class="block">
+                        <div class="navbar navbar-inner block-header">
+                            <div class="muted pull-left">Questions</div>
+                            <div class="pull-right"><span class="badge badge-info">{{number_of_questions}}</span>
+
+                            </div>
+                        </div>
+                        <div class="block-content collapse in">
+                            <table class="table table-striped">
+                                <thead>
+                                    <tr>
+                                        <th>#</th>
+                                        <th>Question Title</th>
+                                        <th>Submit</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {{#questions}}
+                                    <tr>
+                                        <td>{{id}}</td>
+                                        <td>{{title}}</td>
+                                        <td><a class="btn btn-primary btn-mini submit-code" data-id="{{id}}">Submit Code</a></td>
+                                    </tr>
+                                    {{/questions}}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <!-- /block -->
+                </div>
+                {{/is_team}}
+                {{#is_judge}}
+                <div class="span8">
+                    <!-- block -->
+                    <div class="block">
+                        <div class="navbar navbar-inner block-header">
+                            <div class="muted pull-left">Submitted Answers</div>
+                            <div class="pull-right"><span class="badge badge-info">{{number_of_submissions}}</span>
+
+                            </div>
+                        </div>
+                        <div class="block-content collapse in">
+                            <table class="table table-striped">
+                                <thead>
+                                    <tr>
+                                        <th>#</th>
+                                        <th>Team Name</th>
+                                        <th>Question Title</th>
+                                        <th>Status</th>
+                                        <th>Review Code</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {{#submittions}}
+                                    <tr id="submission_{{id}}">
+                                        <td>{{id}}</td>
+                                        <td>
+                                            {{team_name}}
+                                        </td>
+                                        <td>{{question_title}}</td>
+                                        <td>
+                                            <span class="label{{#is_new}} label-warning{{/is_new}}{{#is_accepted}} label-success{{/is_accepted}}">{{status}}</span>
+                                        </td>
+                                        <td>
+                                            <a class="btn btn-primary btn-small review-code"
+                                                data-id="{{id}}"
+                                                data-title="{{question_title}}"
+                                                data-team="{{team_name}}"
+                                                data-toggle="modal"
+                                                data-target="#reviewCodeModal">Review Code</a>
+                                        </td>
+                                    </tr>
+                                    {{/submittions}}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <!-- /block -->
+                </div>
+                <div class="span4">
+                    <!-- block -->
+                    <div class="block">
+                        <div class="navbar navbar-inner block-header">
+                            <div class="muted pull-left">Teams</div>
+                            <div class="pull-right"><span class="badge badge-info">{{number_of_teams}}</span></div>
+                        </div>
+                        <div class="block-content collapse in">
+                            <table class="table table-striped">
+                                <thead>
+                                    <tr>
+                                        <th>#</th>
+                                        <th>Team Name</th>
+                                        <th>Username</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {{#teams}}
+                                    <tr>
+                                        <td>{{id}}</td>
+                                        <td>{{name}}</td>
+                                        <td>{{username}}</td>
+                                    </tr>
+                                    {{/teams}}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <!-- /block -->
+                </div>
+                {{/is_judge}}
+            </div>
+        </div>
+    </div>
+{{>footer}}
