@@ -6,6 +6,7 @@ class ScoreboardView extends View {
     protected $vars;
 
     public function ScoreboardView() {
+        global $SITE_NAME;
         $template = 'scoreboard';
         parent::__construct($template);
         if (isset($_SESSION['user'])) {
@@ -18,6 +19,9 @@ class ScoreboardView extends View {
         } else {
             header('Location: index.php');
         }
+
+        $this->vars['page_title'] = $SITE_NAME;
+        $this->vars['date_today'] = date("l M. d, Y");
 
         // $this->vars['teams'] = UserDAO::getUsers('teams');
         $this->vars['teams'] = ScoreDAO::getScores();
