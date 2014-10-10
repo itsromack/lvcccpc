@@ -6,19 +6,33 @@ class UserDAO {
      * @param String username
      * @param String password
      */
-    public static function getUser($type, $username, $password) {
+    public static function getUser($username, $password) {
         global $db;
-        $sql = "SELECT *
-            FROM {$type}
-            WHERE
-                username = '{$username}'
-                AND password = '{$password}'";
-        $result = $db->query($sql);
-        if ($result) {
-            return $result->fetch_assoc();
+        // Search from teams
+        $sql_teams = "SELECT * FROM teams WHERE username = '{$username}' AND password = '{$password}'";
+        $result = $db->query($sql_teams);
+        error_log($sql_teams);
+        if ($result->num_rows > 0) {
+            error_log('CREATING TEAM OBJECT');
+            $user = new Team($result->fetch_assoc());
+            $user->setType('teams');
+            return $user;
         } else {
-            return false;
+            error_log('NOT A TEAM');
+            // Search from judges
+            $sql_judges = "SELECT * FROM judges WHERE username = '{$username}' AND password = '{$password}'";
+            //bug
+            $result = $db->query($sql_judges);
+            error_log($sql_judges);
+            //bug
+            if ($result->num_rows > 0) {
+                error_log('CREATING JUDGE OBJECT');
+                $user = new Judge($result->fetch_assoc());
+                $user->setType('judges');
+                return $user;
+            }
         }
+        return false;
     }
 
     /**

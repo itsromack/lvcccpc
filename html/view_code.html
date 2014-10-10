@@ -1,0 +1,34 @@
+{{>header}}
+{{>menubar}}
+<div class="container-fluid">
+    <div class="row-fluid">
+        <h4>View Code</h4>
+        <!--/span-->
+        <div class="span12" id="content">
+            <div class="row-fluid">
+                <div class="span12">
+                    <!-- block -->
+                    <div class="block">
+                        <div class="navbar navbar-inner block-header">
+                            <div class="muted pull-left">Problem: {{question_title}}</div>
+                            <div class="pull-right"><span class="badge badge-info">#{{question_id}}</span></div>
+                        </div>
+                        <div class="block-content collapse in">
+                            <form action='view-code-endpoint.php' method='POST'>
+                                <!-- <input type='hidden' name='question_id' value='{{question.id}}' />
+                                <input type='hidden' name='team_id' value='{{team_id}}' /> -->
+                                <input type='hidden' name='answer_id' value='{{answer_id}}' />
+                                <textarea name="answer" style="width:98%; background-color:whitesmoke;" rows="15">{{team_answer}}</textarea>
+                                <div class="pull-right">
+                                    <a href="dashboard.php" class="btn btn-default">Back to Dashboard</a>
+                                    <input type='submit' class="btn btn-primary" value="Update Code" />
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                    <!-- /block -->
+                </div>
+            </div>
+        </div>
+    </div>
+{{>footer}}

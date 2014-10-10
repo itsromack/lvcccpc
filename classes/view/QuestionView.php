@@ -1,13 +1,12 @@
 <?php
 require_once("$BASE_DIR/classes/view/View.php");
 
-class SubmitCodeView extends View {
+class QuestionView extends View {
 
     protected $vars;
 
-    public function SubmitCodeView($question_id) {
-        global $SITE_NAME;
-        $template = 'submit_code';
+    public function QuestionView($question_id) {
+        $template = 'questions';
         parent::__construct($template);
         if (isset($_SESSION['user'])) {
             $user = $_SESSION['user'];
@@ -24,7 +23,7 @@ class SubmitCodeView extends View {
 
         $this->vars['page_title'] = $SITE_NAME;
         $this->vars['date_today'] = date("l M. d, Y");
-        $this->vars['question'] = QuestionDAO::getQuestion($question_id);
+        $this->vars['questions'] = "QuestionDAO::getQuestions()";
 
         $this->addVars($this->vars);
     }

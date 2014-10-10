@@ -2,14 +2,14 @@
 {{>menubar}}
 <div class="container-fluid">
     <div class="row-fluid">
-        {{>sidebar}}
-
+        <h4>Dashboard</h4>
         <!--/span-->
-        <div class="span9" id="content">
+        <div class="span12" id="content">
             <div class="row-fluid">
                 {{#is_team}}
-                <div class="span6">
+                <div class="span12">
                     <!-- block -->
+                    <div class="alert alert-success hide" style="position:absolute;" id="notify">You Successfully updated</div>
                     <div class="block">
                         <div class="navbar navbar-inner block-header">
                             <div class="muted pull-left">Questions</div>
@@ -24,6 +24,7 @@
                                         <th>#</th>
                                         <th>Question Title</th>
                                         <th>Submit</th>
+                                        <th></th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -32,9 +33,12 @@
                                         <td>{{id}}</td>
                                         <td>{{title}}</td>
                                         <td>
-                                            <a class="btn btn-primary btn-small" href="submit-code.php?qid={{id}}">Submit Code</a>
                                             {{#answer}}
-                                            <a class="btn btn-info btn-small" href="view-code.php?aid={{id}}">View Code</a>
+                                            <a class="btn btn-info btn-small" href="view-code.php?aid={{id}}" id="btn-view-code">
+                                            View Code</a>
+                                            {{/answer}}
+                                            {{^answer}}
+                                            <a class="btn btn-primary btn-small" href="submit-code.php?qid={{question_id}}">Submit Code</a>
                                             {{/answer}}
                                         </td>
                                     </tr>
@@ -48,6 +52,7 @@
                 {{/is_team}}
                 {{#is_judge}}
                 <div class="span8">
+                    <input type="hidden" id="code_reviewer_id" value="{{code_reviewer_id}}" />
                     <!-- block -->
                     <div class="block">
                         <div class="navbar navbar-inner block-header">
@@ -62,8 +67,6 @@
                                     <tr>
                                         <th>#</th>
                                         <th>Team Name</th>
-                                        <th>Question Title</th>
-                                        <th>Status</th>
                                         <th>Review Code</th>
                                     </tr>
                                 </thead>
@@ -72,19 +75,28 @@
                                     <tr id="submission_{{id}}">
                                         <td>{{id}}</td>
                                         <td>
-                                            {{team_name}}
+                                            <strong>{{question_title}}</strong>
+                                            <div>
+                                                <span class="badge badge-info">Team: {{team_name}}</span>
+                                                <span class="badge">{{category}}</span>
+                                                <span class="badge">{{level}}</span>
+                                            </div>
+                                            <!-- <div>
+                                            {{members}}
+                                            </div> -->
                                         </td>
-                                        <td>{{question_title}}</td>
                                         <td>
-                                            <span class="label{{#is_new}} label-warning{{/is_new}}{{#is_accepted}} label-success{{/is_accepted}}">{{status}}</span>
-                                        </td>
-                                        <td>
-                                            <a class="btn btn-primary btn-small review-code"
-                                                data-id="{{id}}"
-                                                data-title="{{question_title}}"
-                                                data-team="{{team_name}}"
-                                                data-toggle="modal"
-                                                data-target="#reviewCodeModal">Review Code</a>
+                                            <div>
+                                                <span class="label{{#is_new}} label-warning{{/is_new}}{{#is_accepted}} label-success{{/is_accepted}}">{{status}}</span>
+                                            </div>
+                                            <div>
+                                                <a class="btn btn-small btn-primary review-code"
+                                                    data-id="{{id}}"
+                                                    data-title="{{question_title}}"
+                                                    data-team="{{team_name}}"
+                                                    data-toggle="modal"
+                                                    data-target="#reviewCodeModal">Review Code</a>
+                                            </div>
                                         </td>
                                     </tr>
                                     {{/submissions}}
@@ -98,7 +110,7 @@
                     <!-- block -->
                     <div class="block">
                         <div class="navbar navbar-inner block-header">
-                            <div class="muted pull-left">Teams</div>
+                            <div class="muted pull-left">Teams Standings</div>
                             <div class="pull-right"><span class="badge badge-info">{{number_of_teams}}</span></div>
                         </div>
                         <div class="block-content collapse in">

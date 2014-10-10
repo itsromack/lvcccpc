@@ -1,32 +1,19 @@
 $(function() {
-    // Side Bar Toggle
-    $('.hide-sidebar').click(function() {
-      $('#sidebar').hide('fast', function() {
-        $('#content').removeClass('span9');
-        $('#content').addClass('span12');
-        $('.hide-sidebar').hide();
-        $('.show-sidebar').show();
-      });
-    });
-
-    $('.show-sidebar').click(function() {
-        $('#content').removeClass('span12');
-        $('#content').addClass('span9');
-        $('.show-sidebar').hide();
-        $('.hide-sidebar').show();
-        $('#sidebar').show('fast');
-    });
-
     $('.reject-code').click(function(){
         answer_id = $('#answerId').val();
+        code_reviewer_id = $('#code_reviewer_id').val();
         $.ajax({
             type: 'GET',
             url: '/ajax/rejectCode.php',
-            data: {id: answer_id},
+            data: {id: answer_id, rid: code_reviewer_id},
             dataType: 'json',
             success: function(response) {
                 if (response.success) {
-                    $('#submission_' + answer_id + ' span').removeClass('label-warning').removeClass('label-success').addClass('label-default').html(response.code_status);
+                    $('#submission_' + answer_id + ' span.label')
+                    .removeClass('label-warning')
+                    .removeClass('label-success')
+                    .addClass('label-default')
+                    .html(response.code_status);
                     $('#reviewCodeModal').modal('hide');
                 }
             }
@@ -35,14 +22,19 @@ $(function() {
 
     $('.accept-code').click(function(){
         answer_id = $('#answerId').val();
+        code_reviewer_id = $('#code_reviewer_id').val();
         $.ajax({
             type: 'GET',
             url: '/ajax/acceptCode.php',
-            data: {id: answer_id},
+            data: {id: answer_id, rid: code_reviewer_id},
             dataType: 'json',
             success: function(response) {
                 if (response.success) {
-                    $('#submission_' + answer_id + ' span').removeClass('label-warning').removeClass('label-default').addClass('label-success').html(response.code_status);
+                    $('#submission_' + answer_id + ' span.label')
+                    .removeClass('label-warning')
+                    .removeClass('label-default')
+                    .addClass('label-success')
+                    .html(response.code_status);
                     $('#reviewCodeModal').modal('hide');
                 }
             }
@@ -54,10 +46,11 @@ $(function() {
         title = $(this).data('title');
         team = $(this).data('team');
         answer_id = $(this).data('id');
+        code_reviewer_id = $('#code_reviewer_id').val();
         $.ajax({
             type: 'GET',
             url: '/ajax/getAnswer.php',
-            data: {id: answer_id},
+            data: {id: answer_id, rid: code_reviewer_id},
             dataType: 'json',
             success: function(response) {
                 if (response.success) {

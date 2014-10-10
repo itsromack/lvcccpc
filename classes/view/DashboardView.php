@@ -11,39 +11,32 @@ class DashboardView extends View {
         parent::__construct($template);
         $user = null;
         if (isset($_SESSION['user'])) {
-	        $id = $_SESSION['user']['id'];
-	        $username = $_SESSION['user']['username'];
-	        if ($_SESSION['type'] == 'judges') {
-	        	$complete_name 	= $_SESSION['user']['complete_name'];
-	        	$user = new Judge($id, $complete_name, $username);
+	        $user = $_SESSION['user'];
+            $id = $user->getId();
+            $username = $user->getUsername();
+            $this->vars['username'] = $username;
+            if ($_SESSION['type'] == 'judges') {
+                $complete_name  = $user->getCompleteName();
+                $this->vars['questions'] = QuestionDAO::getQuestions();
                 $this->vars['is_judge'] = true;
-	        } else if ($_SESSION['type'] == 'teams') {
-	        	$name 		= $_SESSION['user']['name'];
-	        	$user = new Team($id, $name, $username);
+                $this->vars['number_of_teams'] = UserDAO::countTeams();
+                $this->vars['teams'] = UserDAO::getUsers('teams');
+                $this->vars['submissions'] = TeamAnswerDAO::getAnswers();
+                $this->vars['code_reviewer_id'] = $user->getId();
+                $this->vars['number_of_submissions'] = TeamAnswerDAO::countSubmissions();
+            } else if ($_SESSION['type'] == 'teams') {
+                $name       = $user->getTeamName();
+                $this->vars['questions'] = QuestionDAO::getQuestions($id);
+                $this->vars['number_of_questions'] = QuestionDAO::countQuestions();
                 $this->vars['is_team'] = true;
-	        }
-        }
-
-        if (isset($user)) {
-            $this->vars['username'] = $user->getUserName();
+            }
         } else {
-            header('Location: index.php');
+            header('Location: index.php?unauthorized');
         }
 
         $this->vars['page_title'] = $SITE_NAME;
         $this->vars['date_today'] = date("l M. d, Y");
-        $this->vars['number_of_teams'] = UserDAO::countTeams();
-        $this->vars['number_of_questions'] = QuestionDAO::countQuestions();
-        $this->vars['teams'] = UserDAO::getUsers('teams');
-        if ($_SESSION['type'] == 'teams') {
-            $this->vars['questions'] = QuestionDAO::getQuestions($_SESSION['user']['id']);
-        } else {
-            $this->vars['questions'] = QuestionDAO::getQuestions();
-        }
-        $this->vars['submissions'] = TeamAnswerDAO::getAnswers();
-        $this->vars['number_of_submissions'] = TeamAnswerDAO::countSubmissions();
-        
-        $this->vars['error'] = (isset($_GET['error'])) ? 'Access Denied' : null;
+        $this->vars['is_on_dashboard'] = true;
 
         $this->addVars($this->vars);
     }

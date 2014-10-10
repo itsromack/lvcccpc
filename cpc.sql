@@ -104,8 +104,10 @@ CREATE TABLE `team_answers` (
   `team_id` int(11) NOT NULL,
   `answer` text,
   `status` varchar(50) DEFAULT 'For Code Review',
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  `code_reviewer` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `team_answer_idx` (`question_id`,`team_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -114,6 +116,7 @@ CREATE TABLE `team_answers` (
 
 LOCK TABLES `team_answers` WRITE;
 /*!40000 ALTER TABLE `team_answers` DISABLE KEYS */;
+INSERT INTO `team_answers` VALUES (1,4,1,'hello world!','Code Accepted',1),(2,2,2,'        <!--/span-->\r\n        <div class=\"span12\" id=\"content\">\r\n            <div class=\"row-fluid\">\r\n                <div class=\"span12\">','For Code Review',NULL);
 /*!40000 ALTER TABLE `team_answers` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -129,6 +132,10 @@ CREATE TABLE `teams` (
   `name` varchar(200) NOT NULL,
   `username` varchar(20) NOT NULL,
   `password` varchar(50) NOT NULL,
+  `members` varchar(255) DEFAULT NULL,
+  `language` varchar(30) DEFAULT NULL,
+  `level` varchar(30) DEFAULT NULL,
+  `category` varchar(30) DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -139,7 +146,7 @@ CREATE TABLE `teams` (
 
 LOCK TABLES `teams` WRITE;
 /*!40000 ALTER TABLE `teams` DISABLE KEYS */;
-INSERT INTO `teams` VALUES (1,'A Team','ateam','f2b14f68eb995facb3a1c35287b778d5bd785511'),(2,'Team B','bteam','f2b14f68eb995facb3a1c35287b778d5bd785511');
+INSERT INTO `teams` VALUES (1,'Vitamin C++','vitaminc++','a101fc22bab5e37cbabe70b718bbe38f743dd160','Joniel Quincena,Carl Angelo Pablea,Emmanuel Santiago','c++','BS-IS','College'),(2,'Javalanche Programmers','javalanche','e69913d877b24d4ed1d466f1d1c5198d4c7a3902','Christopher Monteron,Franz Dale Noa Cuneta,Mark Lois Razon','java','ComProg2','College');
 /*!40000 ALTER TABLE `teams` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -152,4 +159,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2014-10-08 21:10:53
+-- Dump completed on 2014-10-10 22:59:37

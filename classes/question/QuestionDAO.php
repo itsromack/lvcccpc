@@ -1,5 +1,4 @@
 <?php
-
 class QuestionDAO {
     /**
      * @param String teams or judges
@@ -26,7 +25,7 @@ class QuestionDAO {
     public static function getQuestions($team_id = false) {
         global $db;
         $questions = array();
-        $sql = "SELECT id, title FROM questions ORDER BY id";
+        $sql = "SELECT id, title, question FROM questions ORDER BY id";
         $result = $db->query($sql);
         if ($result->num_rows > 0) {
             for ($i = 0; $i < $result->num_rows; $i++) {
@@ -35,6 +34,7 @@ class QuestionDAO {
                     $answer = TeamAnswerDAO::getAnswer(false, $row['id'], $team_id);
                     $row['answer'] = $answer;
                 }
+                $row['question_id'] = $row['id'];
                 $questions[] = $row;
             }
             $result->free();

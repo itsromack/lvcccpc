@@ -2,6 +2,7 @@
 class User {
     private $id;
     private $username;
+    private $type;
 
     public function __construct($id, $username) {
         $this->id = $id;
@@ -14,5 +15,13 @@ class User {
 
     public function getUserName() {
         return $this->username;
+    }
+
+    public function setType($type) {
+        $this->type = $type;
+    }
+
+    public function getType() {
+        return $this->type;
     }
 }

@@ -1,8 +1,7 @@
 <?php
 require("base.php");
 require_once("$BASE_DIR/lib/common.php");
-require_once("$BASE_DIR/classes/view/LoginView.php");
+require_once("$BASE_DIR/classes/view/QuestionView.php");
 
-$page = new LoginView();
+$page = new QuestionView();
 echo $page->generateView();
-unset($_SESSION);

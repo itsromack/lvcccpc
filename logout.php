@@ -1,4 +1,3 @@
 <?php
-unset($_SESSION['user']);
-unset($_SESSION['type']);
+unset($_SESSION);
 header('Location: index.php');

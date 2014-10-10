@@ -2,9 +2,9 @@
 class Team extends User {
     private $name;
 
-    public function __construct($id, $name, $username) {
-        parent::__construct($id, $username);
-        $this->name = $name;
+    public function __construct($config) {
+        parent::__construct($config['id'], $config['username']);
+        $this->name = $config['name'];
     }
 
     public function getTeamName() {

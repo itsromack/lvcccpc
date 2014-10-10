@@ -2,10 +2,10 @@
 {{>menubar}}
 <div class="container-fluid">
     <div class="row-fluid">
-        {{>sidebar}}
+        <h4>Submit Code</h4>
 
         <!--/span-->
-        <div class="span9" id="content">
+        <div class="span12" id="content">
             <div class="row-fluid">
                 <div class="span12">
                     <!-- block -->
@@ -18,7 +18,7 @@
                             <form action='submit-code-endpoint.php' method='POST'>
                                 <input type='hidden' name='question_id' value='{{question.id}}' />
                                 <input type='hidden' name='team_id' value='{{team_id}}' />
-                                <textarea name="answer" style="height:70%; width:98%; background-color:whitesmoke;" rows="20"></textarea>
+                                <textarea name="answer" style="width:98%; background-color:whitesmoke;" rows="15"></textarea>
                                 <div class="pull-right">
                                     <a href="dashboard.php" class="btn btn-default">Back to Dashboard</a>
                                     <input type='submit' class="btn btn-primary" value="Submit Code" />

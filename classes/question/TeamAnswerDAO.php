@@ -2,9 +2,7 @@
 class TeamAnswerDAO {
     public static function getAnswer($answer_id, $question_id = false, $team_id = false) {
         global $db;
-        $sql = "SELECT *
-            FROM team_answers
-            WHERE";
+        $sql = "SELECT * FROM team_answers WHERE";
         if ($answer_id !== false) {
             $sql .= ' id=' . $answer_id;
         }
@@ -35,7 +33,11 @@ class TeamAnswerDAO {
         global $db;
         $answers = array();
         $sql = "SELECT
-                ta.id, ta.status, q.title AS question_title, t.name AS team_name,
+                ta.id, ta.status, q.title AS question_title,
+                t.name AS team_name,
+                t.members AS members,
+                t.level AS level,
+                t.category AS category,
                 (ta.status='Code Accepted') AS is_accepted,
                 (ta.status='Code Rejected') AS is_rejected,
                 (ta.status='For Code Review') AS is_new
@@ -60,6 +62,7 @@ class TeamAnswerDAO {
         global $db;
         $sql = "INSERT INTO team_answers (question_id, team_id, answer) ";
         $sql .= "VALUES ({$question_id}, {$team_id}, '{$answer}')";
+        error_log($sql);
         $db->query($sql);
         if ($db->affected_rows > 0) {
             return true;
@@ -68,10 +71,14 @@ class TeamAnswerDAO {
         }
     }
 
-    public static function updateAnswerStatus($answer_id, $status) {
+    public static function updateAnswerStatus($answer_id, $status, $code_reviewer) {
         global $db;
         $status = sanitize($status);
-        $sql = "UPDATE team_answers SET status='{$status}' WHERE id={$answer_id}";
+        $sql = "UPDATE team_answers
+                SET status='{$status}',
+                code_reviewer={$code_reviewer}
+                WHERE id={$answer_id}";
+        error_log($sql);
         $db->query($sql);
         if ($db->affected_rows > 0) {
             return true;
@@ -87,6 +94,22 @@ class TeamAnswerDAO {
         if ($result) {
             $row = $result->fetch_assoc();
             return $row['number_of_submissions'];
+        } else {
+            return false;
+        }
+    }
+
+    public static function updateAnswer($answer_id, $answer) {
+        global $db;
+        $sql = "UPDATE team_answers
+                SET answer = '{$answer}',
+                status='For Code Review',
+                code_reviewer=NULL
+                WHERE id = {$answer_id}";
+        error_log($sql);
+        $db->query($sql);
+        if ($db->affected_rows > 0) {
+            return true;
         } else {
             return false;
         }
