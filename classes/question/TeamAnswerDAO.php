@@ -40,8 +40,10 @@ class TeamAnswerDAO {
                 t.category AS category,
                 (ta.status='Code Accepted') AS is_accepted,
                 (ta.status='Code Rejected') AS is_rejected,
-                (ta.status='For Code Review') AS is_new
+                (ta.status='For Code Review') AS is_new,
+                j.complete_name AS code_reviewer
                 FROM team_answers ta
+                    LEFT JOIN judges AS j ON(j.id=ta.code_reviewer)
                     JOIN questions q ON (ta.question_id=q.id)
                     JOIN teams t ON (ta.team_id=t.id)
                 ORDER BY id DESC";

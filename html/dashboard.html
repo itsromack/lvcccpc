@@ -76,6 +76,8 @@
                                         <td>{{id}}</td>
                                         <td>
                                             <strong>{{question_title}}</strong>
+                                            <span class="label{{#is_new}} label-warning{{/is_new}}{{#is_accepted}} label-success{{/is_accepted}}">{{status}}</span>
+                                            <span>{{code_reviewer}}</span>
                                             <div>
                                                 <span class="badge badge-info">Team: {{team_name}}</span>
                                                 <span class="badge">{{category}}</span>
@@ -86,9 +88,6 @@
                                             </div> -->
                                         </td>
                                         <td>
-                                            <div>
-                                                <span class="label{{#is_new}} label-warning{{/is_new}}{{#is_accepted}} label-success{{/is_accepted}}">{{status}}</span>
-                                            </div>
                                             <div>
                                                 <a class="btn btn-small btn-primary review-code"
                                                     data-id="{{id}}"
